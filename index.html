@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+    <main class="flex j-c f-wrap">
+
+        <div class="title"> PHONE BOOK </div>
+
+        <div class="wrapper">
+
+            <div class="general-actions flex f-j-sb">
+
+                <div class="left">
+                    <div class="counter"> <span id="count"> 4 </span> <span> People </span> </div>
+                </div>
+
+                <div class="right">
+
+                    <div class="buttons">
+                        <a href="#" id="del-all"> del </a>
+                        <a href="#" id="add-new"> add </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="items" id="user-list">
+
+                <div class="item general-actions flex f-j-sb">
+
+                    <div class="left flex">
+                        <div class="name">
+                            asfa asfa
+                        </div>
+                        <div class="image">
+                            <img src="" alt="">
+                        </div>
+                    </div>
+
+                    <div class="right flex">
+                        <div class="buttons">
+                            <a href="#" class="edit" id="edit"> edit </a>
+                            <a href="#" class="del" id="del"> del </a>
+                            <a href="#" class="info" id="info"> info </a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+        <div class="popup " id="popup">
+            <div class="flex-wrapper flex f-j-sb f-a-c">
+
+                <div class="box flex">
+                    <div class="close" id="close-bttn">X</div>
+                    <form action="">
+                        <div class="fields flex f-wrap f-j-sb">
+
+                            <input type="text" name="name" id="name" value="" placeholder="Enter name">
+                            <input type="phone" name="phone" id="phone" value="" placeholder="Enter phone">
+                            <input type="text" name="address" id="address" value="" placeholder="Enter address">
+                            <input type="number" name="age" id="age" value="" placeholder="Enter age">
+                            <input type="website" name="url" id="url" value="" placeholder="Enter url">
+
+                            <input type="button" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="./utils.js"></script>
+    <script src="./index.js"></script>
+    <script src="./actions.js"></script>
+</body>
+
+</html>
