@@ -12,24 +12,14 @@ const actions = () => {
   add_new.addEventListener('click', e => {
     e.preventDefault();
 
-    add_i`tem([
-      {
-        id: 1,
-        name: 'John Doe',
-        phone: '235235',
-        address: '123 Main St',
-        age: 25,
-        image_url: 'https://example.com/image1.jpg',
-      },
-      {
-        id: 1,
-        name: 'Johnasfasf',
-        phone: '235235',
-        address: '123 Main St',
-        age: 25,
-        image_url: 'https://example.com/image1.jpg',
-      },
-    ]);`
+    add_item({
+      id: 1,
+      name: 'John Doe asfasf',
+      phone: '235235',
+      address: '123 Main St',
+      age: 25,
+      image_url: 'https://example.com/image1.jpg',
+    });
 
     open_popup();
   });

@@ -10,9 +10,8 @@ let db = {
       age: 25,
       image_url: 'https://example.com/image1.jpg',
     },
-
     {
-      id: 1,
+      id: 2,
       name: 'John Doe',
       phone: '235235',
       address: '123 Main St',
@@ -54,7 +53,7 @@ const getUserById = id => {
 
 const user_item_template = user => {
   return `
-        <div class="item general-actions flex f-j-sb">
+        <div class="item general-actions flex f-j-sb" id="${generate_id(5)}">
 
             <div class="left flex">
                 <div class="name">
@@ -64,7 +63,6 @@ const user_item_template = user => {
                     <img src="${user.image_url}" alt="${user.name}">
                 </div>
             </div>
-
             <div class="right flex">
                 <div class="buttons">
                     <a href="#" class="edit" id="edit"> edit </a>
@@ -89,9 +87,8 @@ const render_users = (users, callback) => {
 render_users(getUsers());
 
 const add_item = data => {
-  let asfasf = db.users.push(data);
-
-  render_users(data);
+  db.users.push(data);
+  render_users(getUsers());
 };
 
 const close_popup = () => {
