@@ -12,7 +12,7 @@ const actions = () => {
   add_new.addEventListener('click', e => {
     e.preventDefault();
 
-    add_item([
+    add_i`tem([
       {
         id: 1,
         name: 'John Doe',
@@ -29,7 +29,7 @@ const actions = () => {
         age: 25,
         image_url: 'https://example.com/image1.jpg',
       },
-    ]);
+    ]);`
 
     open_popup();
   });
