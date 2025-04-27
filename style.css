@@ -67,6 +67,10 @@ h6 {
   text-wrap: balance;
 }
 
+img {
+  max-width: 100%;
+}
+
 /*
   10. Create a root stacking context
 */
@@ -123,6 +127,10 @@ main {
 
 .general-actions {
   width: 100%;
+}
+
+.general-actions .image {
+  max-width: 60px;
 }
 
 .popup {
