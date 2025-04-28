@@ -31,8 +31,6 @@ let db = {
 
 };
 
-
-
 const getUsers = () => {
 
     let usersNew = {}
@@ -54,6 +52,7 @@ const getUsers = () => {
     }
     console.log(usersNew);
 
+
     return usersNew;
 };
 
@@ -74,7 +73,7 @@ const getUserById = id => {
 
 const user_item_template = user => {
     return `
-        <div class="item general-actions flex f-j-sb" id="${user.id}" 
+        <div class="item flex f-j-sb f-a-c" id="${user.id}"
             data-entryid=""
             data-name="${user.name}" 
             data-phone="${user.phone}" 
@@ -82,19 +81,19 @@ const user_item_template = user => {
             data-address="${user.address}" 
             data-image="${user.image_url}" >
 
-            <div class="left flex">
-                <div class="name">
-                    ${user.name}
-                </div>
+            <div class="left flex f-a-c">
                 <div class="image">
                     <img src="${user.image_url}" alt="${user.name}">
                 </div>
+                <div class="name">
+                    ${user.name}
+                </div>
             </div>
             <div class="right flex">
-                <div class="buttons">
-                    <a href="#" class="edit" id="edit-${user.id}"> edit </a>
-                    <a href="#" class="del" id="del-${user.id}"> del </a>
-                    <a href="#" class="info" id="info-${user.id}"> info </a>
+                <div class="buttons f-a-c flex f-j-sb">
+                    <a href="#" class="edit" id="edit-${user.id}"> <img src="./images/pen-to-square-solid.svg" alt=""> </a>
+                    <a href="#" class="del" id="del-${user.id}"> <img src="./images/trash-solid.svg" alt=""> </a>
+                    <a href="#" class="info" id="info-${user.id}"> <img src="./images/circle-info-solid.svg" alt=""> </a>
                 </div>
             </div>
 
@@ -104,10 +103,8 @@ const user_item_template = user => {
 
 const user_item_template_empty = user => {
     return `
-        <div class="empty general-actions flex f-j-sb">
-
+        <div class="empty flex f-j-sb">
            No entries
-
         </div>
     `;
 };
@@ -116,12 +113,8 @@ const user_item_template_empty = user => {
 
 const form_template = (data) => {
 
-    console.log(data.data);
-
-
     let formTemplate = '';
     if (data.type === 'add') {
-
         formTemplate = `
         <form action="" id="add-new-form">
         <div class="fields flex f-wrap f-j-sb">
@@ -168,32 +161,22 @@ const form_template = (data) => {
 }
 
 const render_users = (users, callback) => {
-
-
-
     const container = document.getElementById('user-list');
     container.innerHTML = ''; // Clear previous content
 
     if (Object.entries(users).length > 0) {
-
         for (const [k, v] of Object.entries(users)) {
-
-
             const userHTML = user_item_template(v);
             container.innerHTML += userHTML;
-
         }
     } else {
         const userHTML = user_item_template_empty();
         container.innerHTML += userHTML;
     }
+    run_callback(item_acttions);
+    run_callback(deletef);
 
-    // users.forEach((user, index) => {
-    // });
-    // reactive_func(editf);
-    reactive_func(item_acttions);
-    reactive_func(deletef);
-
+    update_counter(get_count(users));
 };
 
 render_users(getUsers());

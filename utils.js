@@ -1,6 +1,6 @@
 'use_strict';
 
-const reactive_func = func2 => {
+const run_callback = func2 => {
   if (typeof func2 == 'function') return func2();
 };
 
@@ -16,3 +16,14 @@ const generate_id = length => {
 
   return result;
 };
+
+
+const update_counter = (count) => {
+
+  document.getElementById('count').innerHTML = count;
+
+}
+
+const get_count = (items) => {
+  return Object.entries(items).length
+}
