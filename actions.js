@@ -2,8 +2,6 @@
 
 
 
-
-
 // POP UP
 const close_popup = () => {
     const popup = document.getElementById('popup');
@@ -22,84 +20,128 @@ document.querySelectorAll('.popup .box')[0].addEventListener('click', (e) => {
     e.stopPropagation();
 })
 
-const close_button = document.getElementById('close-bttn');
+const closeButton = document.getElementById('close-bttn');
 
-close_button.addEventListener('click', e => {
+closeButton.addEventListener('click', e => {
     close_popup();
 });
 
 // POP UP
 
+document.getElementById('search').addEventListener("keyup", function (e) {
+    let searchTerm = e.target.value;
+    let searchResuls = searchFunction(searchTerm);
+    renderSearchResults(searchResuls);
+});
+
+
+const renderSearchResults = (users) => {
+
+    if (users.length === 0) return;
+
+    const container = document.getElementById('user-list');
+    container.innerHTML = ''; // Clear previous content
+
+    for (let index = 0; index < users.length; index++) {
+        const element = users[index];
+        const userHTML = userItemTemplate(getUserById(element));
+        container.innerHTML += userHTML;
+    }
+
+}
+
+const searchFunction = (par) => {
+
+
+    let foundKeys = [];
+    for (const key in db.users) {
+        if (db.users[key].name.includes(par)) {
+            foundKeys.push(key);
+        }
+    }
+
+    return foundKeys;
+}
+
 
 
 document.addEventListener("click", function (e) {
     e.preventDefault();
-    const current_clicked = e.target.closest('a')
-    if (!current_clicked) return;
+    const currentClicked = e.target.closest('a')
+    if (!currentClicked) return;
 
-    const current_clicked_class = current_clicked.getAttribute('class');
-    const current_clicked_id = current_clicked.getAttribute('data-id');
+    const currentClickedClass = currentClicked.getAttribute('class');
+    const currentClickedId = currentClicked.getAttribute('data-id');
 
-    switch (current_clicked_class) {
+    switch (currentClickedClass) {
         case 'del':
-            del_item(current_clicked_id);
+            deleteItem(currentClickedId);
             break;
         case 'info':
-            info_item(current_clicked_id);
+            infoItem(currentClickedId);
             break;
         case 'edit':
-            edit_item(current_clicked_id);
+            editItem(currentClickedId);
             break;
         case 'add-new':
-            add_new();
+            addNew();
             break;
+        case 'del-all':
+            deleteAll();
+            break;
+
         default:
             break;
     }
 
 });
 
-const del_item = (id) => {
+const deleteAll = () => {
+    db.users = {};
+    updateCounter(getCount(db.users));
+    renderUsers(getUsers());
+}
+
+const deleteItem = (id) => {
     let elementToDelete = document.getElementById(id);
     if (elementToDelete) {
         elementToDelete.remove();
         delete db.users[id];
     }
     if (document.querySelectorAll('.items .item').length == 0) {
-        document.querySelectorAll('.items')[0].innerHTML = user_item_template_empty();
+        document.querySelectorAll('.items')[0].innerHTML = userItemTemplateEmpty();
     }
-
-    update_counter(get_count(db.users));
+    updateCounter(getCount(db.users));
 }
 
-const info_item = (id) => {
+const infoItem = (id) => {
     const user = getUserById(id);
     const popup = document.getElementById('popup-content');
-    popup.innerHTML = form_template({ type: 'info', data: user });
+    popup.innerHTML = formTemplate({ type: 'info', data: user });
 
-    run_callbacks({
+    runCallbacks({
         open_popup
     });
 }
 
 
-const edit_item = (id) => {
+const editItem = (id) => {
     const user = getUserById(id);
     const popup = document.getElementById('popup-content');
-    popup.innerHTML = form_template({ type: 'edit', data: user });
+    popup.innerHTML = formTemplate({ type: 'edit', data: user });
 
-    run_callbacks({
+    runCallbacks({
         open_popup,
     });
 }
 
-const add_new = () => {
+const addNew = () => {
     const popup = document.getElementById('popup-content');
-    popup.innerHTML = form_template({ type: 'add' });
-    run_callbacks({
+    popup.innerHTML = formTemplate({ type: 'add' });
+    runCallbacks({
         open_popup,
     });
-    update_counter(get_count(db.users));
+    updateCounter(getCount(db.users));
 
 };
 
@@ -110,7 +152,7 @@ const add_new = () => {
 document.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const form_type = document.getElementById('form-type');
+    const formType = document.getElementById('form-type');
 
     let name = document.getElementById('name');
     let phone = document.getElementById('phone');
@@ -120,8 +162,12 @@ document.addEventListener("submit", function (e) {
     let id = document.getElementById('item-id');
     let itemData = {};
 
-    if (form_type.value === "add-new") {
-        itemData.id = generate_id(5);
+    if (!validation({ name, phone, address, age, image_url })) {
+        return false;
+    }
+
+    if (formType.value === "add-new") {
+        itemData.id = generateId(5);
     } else {
         itemData.id = id.value;
     }
@@ -134,28 +180,29 @@ document.addEventListener("submit", function (e) {
 
 
 
-    switch (form_type.value) {
+    switch (formType.value) {
         case 'edit':
-            update_item(itemData)
+            updateItem(itemData)
             break;
         case 'add-new':
-            create_item(itemData)
+            createItem(itemData)
             break;
         default:
             break;
     }
 
-    run_callbacks({ close_popup });
+    runCallbacks({ close_popup });
 
 });
 
 
-const create_item = data => {
+const createItem = data => {
     db.users = Object.assign({ [data.id]: data }, db.users)
-    render_users(getUsers());
+    renderUsers(getUsers());
 };
 
-const update_item = data => {
+const updateItem = data => {
+
 
     db.users[data.id].name = data.name;
     db.users[data.id].address = data.address;
@@ -163,107 +210,11 @@ const update_item = data => {
     db.users[data.id].image_url = data.image_url;
     db.users[data.id].phone = data.phone;
 
-
-    run_callbacks({ close_popup })
-
-    render_users(getUsers());
+    renderUsers(getUsers());
+    runCallbacks({ close_popup })
 
 };
 
-// }
-
-// add_new();
-
-
-// const item_actions = () => {
-
-//     const elements = document.querySelectorAll('.items .item a');
-
-//     for (let index = 0; index < elements.length; index++) {
-//         const element = elements[index];
-
-//         element.addEventListener('click', e => {
-//             e.preventDefault();
-
-//             if (e.target.closest('a') == null) return false;
-
-//             const parent_item = e.target.closest('.item');
-//             const name = parent_item.getAttribute('data-name');
-//             const phone = parent_item.getAttribute('data-phone');
-//             const age = parent_item.getAttribute('data-age');
-//             const address = parent_item.getAttribute('data-address');
-//             const image = parent_item.getAttribute('data-image');
-//             const clicked_attribute_id = e.target.closest('a').getAttribute('data-id');
-//             const current_clicked_type = e.target.closest('a').getAttribute('class');
-//             const popup = document.getElementById('popup-content');
-
-//             if (!clicked_attribute_id) return;
-
-//             popup.innerHTML = form_template({
-//                 type: current_clicked_type, data: {
-//                     p_id: clicked_attribute_id,
-//                     p_name: name,
-//                     p_phone: phone,
-//                     p_age: age,
-//                     p_address: address,
-//                     p_image: image,
-//                 }
-//             });
-
-//             run_callbacks({
-//                 dataFromForm,
-//                 open_popup
-//             });
-
-//         });
-//     }
-
-// }
-
-
-// const edit_item = () => {
-
-//     const elements = document.querySelectorAll('.items .item a.edit');
-
-
-// }
-
-
-
-
-
-// const dataFromForm = () => {
-
-//     let itemData = {};
-//     document.addEventListener('submit', (e) => {
-//         e.preventDefault();
-
-//         let name = document.getElementById('name');
-//         let phone = document.getElementById('phone');
-//         let address = document.getElementById('address');
-//         let age = document.getElementById('age');
-//         let image_url = document.getElementById('image_url');
-//         itemData.id = generate_id(5);
-//         itemData.name = name.value;
-//         itemData.phone = phone.value;
-//         itemData.address = address.value;
-//         itemData.age = age.value;
-//         itemData.image_url = image_url.value;
-//         create_item(itemData);
-//         run_callbacks({ item_actions, deletef, close_popup })
-//     });
-
-// }
-
-
-
-
-
-// const update_item = (data) => {
-
-
-
-// }
 
 
 

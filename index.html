@@ -5,79 +5,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="font/font.css">
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-
-    <main class="flex j-c f-wrap">
-
-        <div class="title"> PHONE BOOK </div>
-
+    <main class="">
+        <div class="title f-a-c flex j-c"> PHONE BOOK </div>
         <div class="wrapper">
+            <div class="row flex j-c f-wrap">
 
-            <div class="general-actions flex f-j-sb">
-
-                <div class="left">
-                    <div class="counter"> <span id="count"> 4 </span> <span> People </span> </div>
-                    <div class="search-box">
-                        <input type="text" name="search" id="search" placeholder="Enter text">
+                <div class="general-actions flex f-j-sb">
+                    <div class="left">
+                        <div class="counter"> <span id="count"> 4 </span> <span> People </span> </div>
+                        <div class="search-box">
+                            <input type="text" name="search" id="search" placeholder="Enter text">
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="buttons f-a-c flex f-j-sb">
+                            <a href="#" id="add-new" class="add-new"> <img src="./images/user-plus-solid.svg" alt="">
+                            </a>
+                            <a href="#" id="del-all" class="del-all"> <img src="./images/trash-solid.svg" alt=""> </a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="right">
-
-                    <div class="buttons f-a-c flex f-j-sb">
-                        <a href="#" id="add-new" class="add-new"> <img src="./images/user-plus-solid.svg" alt=""> </a>
-                        <a href="#" id="del-all" class="del-all"> <img src="./images/trash-solid.svg" alt=""> </a>
+                <div class="items" id="user-list">
+                    <div class="item general-actions flex f-j-sb">
+                        <div class="left flex">
+                            <div class="name">
+                                asfa asfa
+                            </div>
+                            <div class="image">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+                        <div class="right flex">
+                            <div class="buttons">
+                                <a href="#" class="edit" id="edit"> edit </a>
+                                <a href="#" class="del" id="del"> del </a>
+                                <a href="#" class="info" id="info"> info </a>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
             </div>
-
-            <div class="items" id="user-list">
-
-                <div class="item general-actions flex f-j-sb">
-
-                    <div class="left flex">
-                        <div class="name">
-                            asfa asfa
-                        </div>
-                        <div class="image">
-                            <img src="" alt="">
-                        </div>
-                    </div>
-
-                    <div class="right flex">
-                        <div class="buttons">
-                            <a href="#" class="edit" id="edit"> edit </a>
-                            <a href="#" class="del" id="del"> del </a>
-                            <a href="#" class="info" id="info"> info </a>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-            </div>
-
         </div>
 
         <div class="popup " id="popup">
             <div class="flex-wrapper flex f-j-sb f-a-c">
-
                 <div class="box flex">
-                    <div class="close" id="close-bttn">X</div>
+                    <div class="close" id="close-bttn"> <img src="./images/xmark-solid.svg" alt=""> </div>
                     <div class="popup-content" id="popup-content">
-
-
                     </div>
                 </div>
             </div>
         </div>
+
+        <footer>
+            <div class="cpr">
+                created by Pavel Nasonov
+            </div>
+        </footer>
     </main>
+
+
+
+
 
 
     <script src="./utils.js"></script>

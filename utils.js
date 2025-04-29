@@ -1,10 +1,7 @@
 'use_strict';
 
-const run_callback = func2 => {
-  if (typeof func2 == 'function') return func2();
-};
 
-const generate_id = length => {
+const generateId = length => {
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -18,19 +15,19 @@ const generate_id = length => {
 };
 
 
-const update_counter = (count) => {
+const updateCounter = (count) => {
 
   document.getElementById('count').innerHTML = count;
 
 }
 
-const get_count = (items) => {
+const getCount = (items) => {
 
   return Object.entries(items).length
 }
 
 
-const run_callbacks = funcs_obj => {
+const runCallbacks = funcs_obj => {
   const objEntr = Object.entries(funcs_obj);
   if (objEntr.length > 0) {
     for (const element of objEntr) {
@@ -38,3 +35,34 @@ const run_callbacks = funcs_obj => {
     }
   }
 };
+
+
+document.addEventListener('keyup', (e) => {
+  if (e.target.tagName === "INPUT") {
+    document.querySelectorAll('div.' + e.target.id + ' .error')[0].innerHTML = "";
+  }
+})
+
+
+const validation = (fieldsObj) => {
+  let checkLength = '';
+  for (const key in fieldsObj) {
+    if (Object.prototype.hasOwnProperty.call(fieldsObj, key)) {
+      const element = fieldsObj[key];
+      checkLength = checkInputLength(element.value, key);
+    }
+  }
+  if (checkLength) {
+    return true;
+  }
+  return false;
+}
+
+
+const checkInputLength = (input, name) => {
+  if (input.length <= 0) {
+    document.querySelector('div.' + name + ' .error').innerHTML = "Field is empty";
+    return false;
+  }
+  return true
+}

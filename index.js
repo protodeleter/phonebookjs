@@ -3,27 +3,35 @@
 let db = {
     users:
     {
-        [generate_id(5)]: {
+        [generateId(5)]: {
             name: 'John Doe 55',
             phone: '235235',
             address: '123 Main St',
             age: 25,
             image_url: './images/asf.webp',
         },
-        [generate_id(5)]: {
+        [generateId(5)]: {
             name: 'John Doe',
             phone: '235235',
             address: '123 Main St',
             age: 25,
             image_url: './images/asf.webp',
         },
-        [generate_id(5)]: {
-            name: 'John Doe',
+        [generateId(5)]: {
+            name: 'Pavel',
             phone: '235235',
             address: '123 Main St',
             age: 25,
             image_url: './images/asf.webp',
         },
+        [generateId(5)]: {
+            name: 'Pavel',
+            phone: '235235',
+            address: '123 Main St',
+            age: 25,
+            image_url: './images/asf.webp',
+        },
+
     }
 };
 
@@ -67,7 +75,7 @@ const getUserById = id => {
     };
 };
 
-const user_item_template = user => {
+const userItemTemplate = user => {
     return `
         <div class="item flex f-j-sb f-a-c" id="${user.id}"
             data-entryid=""
@@ -97,7 +105,7 @@ const user_item_template = user => {
     `;
 };
 
-const user_item_template_empty = user => {
+const userItemTemplateEmpty = user => {
     return `
         <div class="empty flex f-j-sb">
            No entries
@@ -107,82 +115,104 @@ const user_item_template_empty = user => {
 
 
 
-const form_template = (data) => {
+const formTemplate = (data) => {
 
     let formTemplate = '';
-    if (data.type === 'add') {
-        formTemplate = `
-        <form action="" id="add-new-form">
-        <div class="fields flex f-wrap f-j-sb">
-        <input type="hidden" value="add-new" name="form-type" id="form-type">
-        <input type="hidden" value="" name="item-id">
-        <input type="text" name="name" id="name" value="" placeholder="Enter name">
-        <input type="phone" name="phone" id="phone" value="" placeholder="Enter phone">
-        <input type="text" name="address" id="address" value="" placeholder="Enter address">
-        <input type="number" name="age" id="age" value="" placeholder="Enter age">
-        <input type="url" name="image_url" id="image_url" placeholder="Image Url">
-        <input type="submit" value="Save">
-        </div>
-        </form>
-    `;
-    }
-    else if (data.type === 'edit') {
-        formTemplate = `
-        <form action="" id="edit-form">
-        <div class="fields flex f-wrap f-j-sb">
-        <input type="hidden" value="edit" name="form-type" id="form-type">
-        <input type="hidden" value="${data.data.id}" name="item-id" id="item-id">
-        <input type="text" name="name" id="name" value="${data.data.name ? data.data.name : ""}" placeholder="Enter name">
-        <input type="phone" name="phone" id="phone" value="${data.data.phone ? data.data.phone : ""}" placeholder="Enter phone">
-        <input type="text" name="address" id="address" value="${data.data.address ? data.data.address : ""}" placeholder="Enter address">
-        <input type="number" name="age" id="age" value="${data.data.age ? data.data.age : ""}" placeholder="Enter age">
-        <input type="url" name="image_url" id="image_url" value="${data.data.image_url ? data.data.image_url : ""}" placeholder="Image Url">
-        <input type="submit" value="Save">
-        </div>
-        </form>
-    `;
 
-    }
-    else if (data.type === 'info') {
+    let formId = data.type === "add" ? "add-new" : "edit";
+
+    if (data.type === 'info') {
 
         formTemplate = `
-        <div class="info-content">
-            <div> ${data.data.name} </div>
-            <div> ${data.data.phone} </div>
-            <div> ${data.data.address} </div>
-            <div> ${data.data.age} </div>
-            <div> <img src="${data.data.image_url}" alt="${data.data.name}"> </div>
-        </div>
+            <div class="info-content">
+                <div class="info-item"> ${data.data.name} </div>
+                <div class="info-item"> ${data.data.phone} </div>
+                <div class="info-item"> ${data.data.address} </div>
+                <div class="info-item"> ${data.data.age} </div>
+                <div class="info-item"> <img src="${data.data.image_url}" alt="${data.data.name}"> </div>
+            </div>
+        `;
+    } else {
+        formTemplate = `
+        <form action="" id="${formId}">
+            <div class="fields flex f-wrap f-j-sb">
+                <input type="hidden" value="${formId}" name="form-type" id="form-type">
+                <input type="hidden" value="${data.data && data.data.id}" name="item-id" id="item-id">
+                <div class="field name">
+                    <label for="name" class="flex f-a-c">
+                        <span>Name*:</span>
+                        <input type="text" name="name" id="name" value="${(data.data && data.data.name) ? data.data.name : ''}" placeholder="Enter name">
+                    </label >
+                    <span class="error"></span>
+                </div >
+
+                <div class="field phone">
+                    <label for="phone" class="flex f-a-c">
+                        <span>Phone*:</span>
+                        <input type="phone" name="phone" id="phone" value="${data.data && data.data.phone ? data.data.phone : ''}" placeholder="Enter phone">
+                    </label>
+                    <span class="error"></span>
+                </div>
+
+                <div class="field address">
+                    <label for="Address" class="flex f-a-c">
+                        <span>Address*:</span>
+                        <input type="text" name="address" id="address" value="${data.data && data.data.address ? data.data.address : ''}" placeholder="Enter address">
+                    </label>
+                    <span class="error"></span>
+                </div>
+
+                <div class="field age">
+                    <label for="age" class="flex f-a-c">
+                        <span>Age*:</span>
+                        <input type="number" name="age" id="age" value="${data.data && data.data.age ? data.data.age : ''}" placeholder="Enter age">
+                    </label>
+                    <span class="error"></span>
+                </div>
+
+                <div class="field image_url">
+                    <label for="image_url" class="flex f-a-c">
+                        <span>Image url:</span>
+                        <input type="url" name="image_url" id="image_url" value="${data.data && data.data.image_url ? data.data.image_url : ''}" placeholder="Image Url">
+                    </label>
+                    <span class="error"></span>
+                </div>
+                <div class="field">
+                    <input type="submit" value="Save">
+                </div>
+
+            </div >
+        </form >
     `;
     }
 
     return formTemplate;
 }
 
-const render_users = (users, callback) => {
+const renderUsers = (users, callback) => {
     const container = document.getElementById('user-list');
     container.innerHTML = ''; // Clear previous content
 
+    console.log(users);
+
+
     if (Object.entries(users).length > 0) {
         for (const [k, v] of Object.entries(users)) {
-            const userHTML = user_item_template(v);
+            const userHTML = userItemTemplate(v);
             container.innerHTML += userHTML;
         }
     } else {
-        const userHTML = user_item_template_empty();
+        const userHTML = userItemTemplateEmpty();
         container.innerHTML += userHTML;
     }
 
-    // run_callbacks({
-    //     item_actions,
-    //     deletef
-    // })
 
-    update_counter(get_count(users));
+
+    updateCounter(getCount(users));
 };
 
 function run_app() {
-    render_users(getUsers());
+    renderUsers(getUsers());
 }
 
 run_app();
