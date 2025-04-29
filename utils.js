@@ -25,5 +25,16 @@ const update_counter = (count) => {
 }
 
 const get_count = (items) => {
+
   return Object.entries(items).length
 }
+
+
+const run_callbacks = funcs_obj => {
+  const objEntr = Object.entries(funcs_obj);
+  if (objEntr.length > 0) {
+    for (const element of objEntr) {
+      element[1]()
+    }
+  }
+};

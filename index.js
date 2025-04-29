@@ -4,7 +4,6 @@ let db = {
     users:
     {
         [generate_id(5)]: {
-            id: generate_id(5),
             name: 'John Doe 55',
             phone: '235235',
             address: '123 Main St',
@@ -25,18 +24,16 @@ let db = {
             age: 25,
             image_url: './images/asf.webp',
         },
-
     }
-
-
 };
+
+
 
 const getUsers = () => {
 
     let usersNew = {}
 
     if (Object.entries(db.users).length > 0) {
-
         for (const [key, value] of Object.entries(db.users)) {
             for (const [k, v] of Object.entries(value)) {
                 usersNew[key] = {
@@ -50,19 +47,18 @@ const getUsers = () => {
             }
         }
     }
-    console.log(usersNew);
-
 
     return usersNew;
 };
 
 const getUserById = id => {
-    const user = db.users.find(user => user.id === id);
+    const user = db.users[id];
+
     if (!user) {
         return null;
     }
     return {
-        id: user.id,
+        id: id,
         name: user.name,
         phone: user.phone,
         address: user.address,
@@ -91,9 +87,9 @@ const user_item_template = user => {
             </div>
             <div class="right flex">
                 <div class="buttons f-a-c flex f-j-sb">
-                    <a href="#" class="edit" id="edit-${user.id}"> <img src="./images/pen-to-square-solid.svg" alt=""> </a>
-                    <a href="#" class="del" id="del-${user.id}"> <img src="./images/trash-solid.svg" alt=""> </a>
-                    <a href="#" class="info" id="info-${user.id}"> <img src="./images/circle-info-solid.svg" alt=""> </a>
+                    <a href="#" class="edit" data-id="${user.id}"> <img src="./images/pen-to-square-solid.svg" alt=""> </a>
+                    <a href="#" class="del" data-id="${user.id}"> <img src="./images/trash-solid.svg" alt=""> </a>
+                    <a href="#" class="info" data-id="${user.id}"> <img src="./images/circle-info-solid.svg" alt=""> </a>
                 </div>
             </div>
 
@@ -118,6 +114,7 @@ const form_template = (data) => {
         formTemplate = `
         <form action="" id="add-new-form">
         <div class="fields flex f-wrap f-j-sb">
+        <input type="hidden" value="add-new" name="form-type" id="form-type">
         <input type="hidden" value="" name="item-id">
         <input type="text" name="name" id="name" value="" placeholder="Enter name">
         <input type="phone" name="phone" id="phone" value="" placeholder="Enter phone">
@@ -131,14 +128,15 @@ const form_template = (data) => {
     }
     else if (data.type === 'edit') {
         formTemplate = `
-        <form action="" id="add-new-form">
+        <form action="" id="edit-form">
         <div class="fields flex f-wrap f-j-sb">
-        <input type="hidden" value="" name="item-id">
-        <input type="text" name="name" id="name" value="${data.data.p_name}" placeholder="Enter name">
-        <input type="phone" name="phone" id="phone" value="${data.data.p_phone}" placeholder="Enter phone">
-        <input type="text" name="address" id="address" value="${data.data.p_address}" placeholder="Enter address">
-        <input type="number" name="age" id="age" value="${data.data.p_age}" placeholder="Enter age">
-        <input type="url" name="image_url" id="image_url" value="${data.data.p_image}" placeholder="Image Url">
+        <input type="hidden" value="edit" name="form-type" id="form-type">
+        <input type="hidden" value="${data.data.id}" name="item-id" id="item-id">
+        <input type="text" name="name" id="name" value="${data.data.name ? data.data.name : ""}" placeholder="Enter name">
+        <input type="phone" name="phone" id="phone" value="${data.data.phone ? data.data.phone : ""}" placeholder="Enter phone">
+        <input type="text" name="address" id="address" value="${data.data.address ? data.data.address : ""}" placeholder="Enter address">
+        <input type="number" name="age" id="age" value="${data.data.age ? data.data.age : ""}" placeholder="Enter age">
+        <input type="url" name="image_url" id="image_url" value="${data.data.image_url ? data.data.image_url : ""}" placeholder="Image Url">
         <input type="submit" value="Save">
         </div>
         </form>
@@ -146,13 +144,14 @@ const form_template = (data) => {
 
     }
     else if (data.type === 'info') {
+
         formTemplate = `
         <div class="info-content">
-            <div> ${data.data.p_name} </div>
-            <div> ${data.data.p_phone} </div>
-            <div> ${data.data.p_address} </div>
-            <div> ${data.data.p_age} </div>
-            <div> <img src="${data.data.p_image}" alt="${data.data.p_name}"> </div>
+            <div> ${data.data.name} </div>
+            <div> ${data.data.phone} </div>
+            <div> ${data.data.address} </div>
+            <div> ${data.data.age} </div>
+            <div> <img src="${data.data.image_url}" alt="${data.data.name}"> </div>
         </div>
     `;
     }
@@ -173,11 +172,17 @@ const render_users = (users, callback) => {
         const userHTML = user_item_template_empty();
         container.innerHTML += userHTML;
     }
-    run_callback(item_acttions);
-    run_callback(deletef);
+
+    // run_callbacks({
+    //     item_actions,
+    //     deletef
+    // })
 
     update_counter(get_count(users));
 };
 
-render_users(getUsers());
+function run_app() {
+    render_users(getUsers());
+}
 
+run_app();
