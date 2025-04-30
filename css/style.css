@@ -306,4 +306,8 @@ footer .cpr {
     width: 90%;
   }
 
+  .wrapper .row .items {
+    max-height: 340px;
+  }
+
 }
