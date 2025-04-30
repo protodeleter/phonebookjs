@@ -51,15 +51,12 @@ const renderSearchResults = (users) => {
 }
 
 const searchFunction = (par) => {
-
-
     let foundKeys = [];
     for (const key in db.users) {
-        if (db.users[key].name.includes(par)) {
+        if (db.users[key].name.toLowerCase().includes(par)) {
             foundKeys.push(key);
         }
     }
-
     return foundKeys;
 }
 
@@ -214,7 +211,6 @@ const updateItem = data => {
     runCallbacks({ close_popup })
 
 };
-
 
 
 

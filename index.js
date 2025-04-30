@@ -193,9 +193,6 @@ const renderUsers = (users, callback) => {
     const container = document.getElementById('user-list');
     container.innerHTML = ''; // Clear previous content
 
-    console.log(users);
-
-
     if (Object.entries(users).length > 0) {
         for (const [k, v] of Object.entries(users)) {
             const userHTML = userItemTemplate(v);
@@ -207,9 +204,37 @@ const renderUsers = (users, callback) => {
     }
 
 
-
+    animations();
     updateCounter(getCount(users));
 };
+
+
+
+const animations = () => {
+
+    let items = document.querySelectorAll('.item')
+
+
+    for (let index = 0; index < items.length; index++) {
+        const element = items[index];
+
+
+        element.addEventListener('mouseenter', (e) => {
+            e.target.classList += ' hover';
+        })
+
+        element.addEventListener('mouseleave', (e) => {
+            e.target.classList.remove('hover');
+        })
+
+    }
+
+
+
+
+}
+
+
 
 function run_app() {
     renderUsers(getUsers());

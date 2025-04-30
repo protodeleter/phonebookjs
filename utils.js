@@ -37,11 +37,7 @@ const runCallbacks = funcs_obj => {
 };
 
 
-document.addEventListener('keyup', (e) => {
-  if (e.target.tagName === "INPUT") {
-    document.querySelectorAll('div.' + e.target.id + ' .error')[0].innerHTML = "";
-  }
-})
+
 
 
 const validation = (fieldsObj) => {
@@ -49,6 +45,12 @@ const validation = (fieldsObj) => {
   for (const key in fieldsObj) {
     if (Object.prototype.hasOwnProperty.call(fieldsObj, key)) {
       const element = fieldsObj[key];
+      element.addEventListener('keyup', (e) => {
+        if (e.target.tagName === "INPUT") {
+          document.querySelectorAll('div.' + e.target.id + ' .error')[0].innerHTML = "";
+        }
+      })
+
       checkLength = checkInputLength(element.value, key);
     }
   }
