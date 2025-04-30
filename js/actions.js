@@ -46,7 +46,7 @@ closeButton.addEventListener('click', e => {
  */
 
 
-document.getElementById('search').addEventListener("keyup touchend", function (e) {
+document.getElementById('search').addEventListener("keyup", function (e) {
     let searchTerm = e.target.value;
     let searchResuls = searchFunction(searchTerm);
     renderSearchResults(searchResuls);
