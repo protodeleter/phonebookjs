@@ -46,7 +46,7 @@ closeButton.addEventListener('click', e => {
  */
 
 
-document.getElementById('search').addEventListener("input", function (e) {
+document.getElementById('search').addEventListener("keyup touchend", function (e) {
     let searchTerm = e.target.value;
     let searchResuls = searchFunction(searchTerm);
     renderSearchResults(searchResuls);
@@ -79,7 +79,9 @@ const renderSearchResults = (users) => {
 const searchFunction = (par) => {
     let foundKeys = [];
     for (const key in db.users) {
-        if (db.users[key].name.toLowerCase().includes(par)) {
+        let regex = new RegExp(par, "i"); // Case-insensitive search
+        let res = regex.test(db.users[key].name);
+        if (res) {
             foundKeys.push(key);
         }
     }
