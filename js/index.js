@@ -8,34 +8,40 @@ let db = {
     users:
     {
         [generateId(5)]: {
-            name: 'John Doe 55',
+            name: 'John Smith',
             phone: '235235',
             address: '123 Main St',
             age: 25,
-            image_url: './images/asf.webp',
+            image_url: 'https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?t=st=1746027604~exp=1746031204~hmac=807c0a00faae85c442b77f20d928618cb45235517b772c3ee5d0b4a8f1406958&w=740',
         },
         [generateId(5)]: {
-            name: 'John Doe',
-            phone: '235235',
+            name: 'Patricia Keys',
+            phone: '214124124',
             address: '123 Main St',
             age: 25,
-            image_url: './images/asf.webp',
+            image_url: 'https://img.freepik.com/premium-photo/memoji-beautiful-girl-woman-white-background-emoji_826801-6872.jpg?w=740',
         },
         [generateId(5)]: {
-            name: 'Pavel',
+            name: 'Georgina Sims',
             phone: '235235',
             address: '123 Main St',
             age: 25,
-            image_url: './images/asf.webp',
+            image_url: 'https://plus.unsplash.com/premium_photo-1671656349218-5218444643d8?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         },
         [generateId(5)]: {
-            name: 'Pavel',
+            name: 'Lorenzo Goodwin',
             phone: '235235',
             address: '123 Main St',
             age: 25,
-            image_url: './images/asf.webp',
+            image_url: 'https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?t=st=1746027604~exp=1746031204~hmac=807c0a00faae85c442b77f20d928618cb45235517b772c3ee5d0b4a8f1406958&w=740',
         },
-
+        [generateId(5)]: {
+            name: 'Pavel Nasonov',
+            phone: '235235',
+            address: '123 Main St',
+            age: 25,
+            image_url: 'https://scontent.ftlv18-1.fna.fbcdn.net/v/t39.30808-6/493026291_656761140555428_2947196945405164635_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_ohc=upcKnsk7A9MQ7kNvwG9wimJ&_nc_oc=AdlxjGPWHBSHt4a-Rhn2AMPKeSkQawk0n1ccckfUBNtzCkO__T8QvfcaZN3vGrleTyY&_nc_zt=23&_nc_ht=scontent.ftlv18-1.fna&_nc_gid=n0Ihz_W7SJwJ7M7MwZn6_g&oh=00_AfHoiPhNYfKzcxkFX8F1VI3RR_daJkHihYPKw5F1iGCEyw&oe=68181351',
+        },
     }
 };
 
