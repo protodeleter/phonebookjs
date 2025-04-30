@@ -65,7 +65,7 @@ const validation = (fieldsObj) => {
       /**
        * hide error div when typing
        */
-      element.addEventListener('keyup', (e) => {
+      element.addEventListener('keyup touchend', (e) => {
         if (e.target.tagName === "INPUT") {
           document.querySelectorAll('div.' + e.target.id + ' .error')[0].innerHTML = "";
         }
