@@ -44,7 +44,9 @@ closeButton.addEventListener('click', e => {
  * Serch engine 
  * get input value filter and render results
  */
-document.getElementById('search').addEventListener("keyup touchend", function (e) {
+
+
+document.getElementById('search').addEventListener("input", function (e) {
     let searchTerm = e.target.value;
     let searchResuls = searchFunction(searchTerm);
     renderSearchResults(searchResuls);
