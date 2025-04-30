@@ -1,5 +1,9 @@
 'use_strict';
 
+
+/**
+ * Data base object
+ */
 let db = {
     users:
     {
@@ -36,7 +40,10 @@ let db = {
 };
 
 
-
+/**
+ * getUsers get entries of the database object and map 
+ * @returns object
+ */
 const getUsers = () => {
 
     let usersNew = {}
@@ -59,6 +66,11 @@ const getUsers = () => {
     return usersNew;
 };
 
+/**
+ * get single user by id from db object
+ * @param id 
+ * @returns object
+ */
 const getUserById = id => {
     const user = db.users[id];
 
@@ -74,7 +86,11 @@ const getUserById = id => {
         image_url: user.image_url,
     };
 };
-
+/**
+ * HTML template of the sinle item of the phone book
+ * @param user 
+ * @returns string
+ */
 const userItemTemplate = user => {
     return `
         <div class="item flex f-j-sb f-a-c" id="${user.id}"
@@ -105,6 +121,11 @@ const userItemTemplate = user => {
     `;
 };
 
+/**
+ * HTML template if no items present in phone book
+ * @param user 
+ * @returns string
+ */
 const userItemTemplateEmpty = user => {
     return `
         <div class="empty flex f-j-sb">
@@ -114,8 +135,12 @@ const userItemTemplateEmpty = user => {
 };
 
 
-
-const formTemplate = (data) => {
+/**
+ * return html template based on condition. condition parameters are info||add||edit
+ * @param data 
+ * @returns string 
+ */
+const popupTemplate = (data) => {
 
     let formTemplate = '';
 
@@ -189,7 +214,11 @@ const formTemplate = (data) => {
     return formTemplate;
 }
 
-const renderUsers = (users, callback) => {
+/**
+ * Populate #user-list div with items or empty div
+ * @param  users 
+ */
+const renderUsers = (users) => {
     const container = document.getElementById('user-list');
     container.innerHTML = ''; // Clear previous content
 
@@ -203,41 +232,35 @@ const renderUsers = (users, callback) => {
         container.innerHTML += userHTML;
     }
 
-
+    /**
+     * call to animations function to make it available after render
+     * call to update counter  
+     */
     animations();
     updateCounter(getCount(users));
 };
 
 
-
+/**
+ * animations on hover on item
+ */
 const animations = () => {
-
     let items = document.querySelectorAll('.item')
-
-
     for (let index = 0; index < items.length; index++) {
         const element = items[index];
-
-
         element.addEventListener('mouseenter', (e) => {
             e.target.classList += ' hover';
         })
-
         element.addEventListener('mouseleave', (e) => {
             e.target.classList.remove('hover');
         })
-
     }
-
-
-
-
 }
 
 
 
-function run_app() {
+function runApp() {
     renderUsers(getUsers());
 }
 
-run_app();
+runApp();

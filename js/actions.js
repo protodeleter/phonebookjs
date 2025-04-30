@@ -3,6 +3,10 @@
 
 
 // POP UP
+/**
+ * popup actions
+ * 
+ */
 const close_popup = () => {
     const popup = document.getElementById('popup');
     popup.style.display = 'none';
@@ -12,13 +16,20 @@ const open_popup = () => {
     const popup = document.getElementById('popup');
     popup.style.display = 'block';
 };
+
+/**
+ * allow to close popup clicking outsite of popup box and without clicking on close popup button
+ */
 document.getElementById('popup').addEventListener('click', (e) => {
     close_popup();
 })
-
 document.querySelectorAll('.popup .box')[0].addEventListener('click', (e) => {
     e.stopPropagation();
 })
+
+/**
+ * close popup when clicking on close popup button
+ */
 
 const closeButton = document.getElementById('close-bttn');
 
@@ -26,15 +37,24 @@ closeButton.addEventListener('click', e => {
     close_popup();
 });
 
-// POP UP
+// END POP UP
 
+
+/**
+ * Serch engine 
+ * get input value filter and render results
+ */
 document.getElementById('search').addEventListener("keyup", function (e) {
     let searchTerm = e.target.value;
     let searchResuls = searchFunction(searchTerm);
     renderSearchResults(searchResuls);
 });
 
-
+/**
+ *  populate #user-list div with search results 
+ * @param users 
+ * @returns 
+ */
 const renderSearchResults = (users) => {
 
     if (users.length === 0) return;
@@ -49,7 +69,11 @@ const renderSearchResults = (users) => {
     }
 
 }
-
+/**
+ * get and filter results from database
+ * @param par 
+ * @returns array 
+ */
 const searchFunction = (par) => {
     let foundKeys = [];
     for (const key in db.users) {
@@ -61,15 +85,22 @@ const searchFunction = (par) => {
 }
 
 
-
+/**
+ * click event listener 
+ */
 document.addEventListener("click", function (e) {
     e.preventDefault();
-    const currentClicked = e.target.closest('a')
+
+
+
+    const currentClicked = e.target.closest('a'); // find closest A tag 
     if (!currentClicked) return;
 
-    const currentClickedClass = currentClicked.getAttribute('class');
-    const currentClickedId = currentClicked.getAttribute('data-id');
 
+    const currentClickedClass = currentClicked.getAttribute('class'); // get element class attribute
+    const currentClickedId = currentClicked.getAttribute('data-id'); // get element data-id attribute
+
+    // run function depending on currentClickedClass value
     switch (currentClickedClass) {
         case 'del':
             deleteItem(currentClickedId);
@@ -93,12 +124,21 @@ document.addEventListener("click", function (e) {
 
 });
 
+/**
+ * CLear database update counter and render results
+ */
 const deleteAll = () => {
     db.users = {};
     updateCounter(getCount(db.users));
     renderUsers(getUsers());
 }
 
+/**
+ * Delete spesific item by parameter id 
+ * update counter
+ * remove element from DOM
+ * @param id 
+ */
 const deleteItem = (id) => {
     let elementToDelete = document.getElementById(id);
     if (elementToDelete) {
@@ -111,63 +151,86 @@ const deleteItem = (id) => {
     updateCounter(getCount(db.users));
 }
 
+/**
+ * populate popup with info template and item data
+ * @param  id 
+ */
 const infoItem = (id) => {
     const user = getUserById(id);
     const popup = document.getElementById('popup-content');
-    popup.innerHTML = formTemplate({ type: 'info', data: user });
+    popup.innerHTML = popupTemplate({ type: 'info', data: user });
 
     runCallbacks({
         open_popup
     });
 }
 
-
+/**
+ * open popup and populate with edit form
+ * @param  id 
+ */
 const editItem = (id) => {
     const user = getUserById(id);
     const popup = document.getElementById('popup-content');
-    popup.innerHTML = formTemplate({ type: 'edit', data: user });
+    popup.innerHTML = popupTemplate({ type: 'edit', data: user });
 
     runCallbacks({
         open_popup,
     });
 }
 
+/**
+ * open popup and populate with add-new form
+ */
 const addNew = () => {
     const popup = document.getElementById('popup-content');
-    popup.innerHTML = formTemplate({ type: 'add' });
+    popup.innerHTML = popupTemplate({ type: 'add' });
     runCallbacks({
         open_popup,
     });
-    updateCounter(getCount(db.users));
 
 };
 
 
-// const form_submit = () => {
-
+/**
+ * submit event listener
+ */
 
 document.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const formType = document.getElementById('form-type');
 
+    const formType = document.getElementById('form-type'); // get form type add-new or edit
+
+    /**
+     * input values
+     */
     let name = document.getElementById('name');
     let phone = document.getElementById('phone');
     let address = document.getElementById('address');
     let age = document.getElementById('age');
     let image_url = document.getElementById('image_url');
     let id = document.getElementById('item-id');
+
     let itemData = {};
 
+    /**
+     * basic validation
+     */
     if (!validation({ name, phone, address, age, image_url })) {
         return false;
     }
+
 
     if (formType.value === "add-new") {
         itemData.id = generateId(5);
     } else {
         itemData.id = id.value;
     }
+
+    /**
+     * map input values and add to itemData object
+     */
 
     itemData.name = name.value;
     itemData.phone = phone.value;
@@ -188,15 +251,25 @@ document.addEventListener("submit", function (e) {
             break;
     }
 
+    updateCounter(getCount(db.users));
     runCallbacks({ close_popup });
 
 });
 
 
+/**
+ * add new item to database and render results
+ * @param  data 
+ */
 const createItem = data => {
     db.users = Object.assign({ [data.id]: data }, db.users)
     renderUsers(getUsers());
 };
+
+/**
+ * update spesific item and render results
+ * @param data 
+ */
 
 const updateItem = data => {
 
