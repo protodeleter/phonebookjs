@@ -117,9 +117,9 @@ const userItemTemplate = user => {
             </div>
             <div class="right flex">
                 <div class="buttons f-a-c flex f-j-sb">
-                    <a href="#" class="edit" data-id="${user.id}"> <img src="./images/pen-to-square-solid.svg" alt=""> </a>
-                    <a href="#" class="del" data-id="${user.id}"> <img src="./images/trash-solid.svg" alt=""> </a>
-                    <a href="#" class="info" data-id="${user.id}"> <img src="./images/circle-info-solid.svg" alt=""> </a>
+                    <a href="#" class="edit" data-id="${user.id}"> <img src="./images/pen-to-square-solid.svg" alt="" class="black">  <img src="./images/pen-to-square-solid-white.svg" alt="" class="white"> </a>
+                    <a href="#" class="del" data-id="${user.id}"> <img src="./images/trash-solid.svg" alt="" class="black">   <img src="./images/trash-solid-white.svg" alt="" class="white"> </a>
+                    <a href="#" class="info" data-id="${user.id}"> <img src="./images/circle-info-solid.svg" alt="" class="black"> <img src="./images/circle-info-solid-white.svg" alt="" class="white"> </a>
                 </div>
             </div>
 

@@ -128,6 +128,8 @@ document.addEventListener("click", function (e) {
 
 });
 
+
+
 /**
  * CLear database update counter and render results
  */
@@ -290,5 +292,54 @@ const updateItem = data => {
 };
 
 
+document.querySelectorAll('.change-mode').forEach((element) => {
+
+    element.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const clickedID = e.target.closest('a').getAttribute('id');
+        let mainClass = clickedID === "go-dark" ? "dark" : "light";
+
+        overlayAnimation(mainClass)
+
+
+        setTimeout(() => {
+            document.querySelectorAll('main')[0].classList = mainClass;
+        }, 1000);
+
+
+    })
+
+})
+
+
+const overlayAnimation = (cls) => {
+
+    let overlayDiv = document.querySelectorAll('.mode-change-overlay');
+
+    if (cls == "dark") {
+        overlayDiv[0].style.background = "#22222B";
+    } else {
+        overlayDiv[0].style.background = "#cfd2ff";
+    }
+
+    overlayDiv[0].style.display = "block";
+    overlayDiv[0].style.width = "100%";
+    overlayDiv[0].style.transition = "all 1s ease-in-out;";
+
+
+    setTimeout(() => {
+
+        overlayDiv[0].style.left = "auto";
+        overlayDiv[0].style.right = "0";
+        overlayDiv[0].style.width = "0%";
+
+    }, 1000);
+
+    overlayDiv[0].style.left = "0";
+    overlayDiv[0].style.right = "auto";
+
+
+}
 
 

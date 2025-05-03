@@ -12,7 +12,7 @@
 
 <body>
 
-    <main class="">
+    <main class="light">
         <div class="title f-a-c flex j-c"> PHONE BOOK </div>
         <div class="wrapper">
             <div class="row flex j-c f-wrap">
@@ -26,9 +26,14 @@
                     </div>
                     <div class="right">
                         <div class="buttons f-a-c flex f-j-sb">
-                            <a href="#" id="add-new" class="add-new"> <img src="./images/user-plus-solid.svg" alt="">
+                            <a href="#" id="add-new" class="add-new">
+                                <img src="./images/user-plus-solid.svg" alt="" class="black">
+                                <img src="./images/user-plus-solid-white.svg" alt="" class="white">
                             </a>
-                            <a href="#" id="del-all" class="del-all"> <img src="./images/trash-solid.svg" alt=""> </a>
+                            <a href="#" id="del-all" class="del-all">
+                                <img src="./images/trash-solid.svg" alt="" class="black">
+                                <img src="./images/trash-solid-white.svg" alt="" class="white">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -59,11 +64,26 @@
         <div class="popup " id="popup">
             <div class="flex-wrapper flex f-j-sb f-a-c">
                 <div class="box flex">
-                    <div class="close" id="close-bttn"> <img src="./images/xmark-solid.svg" alt=""> </div>
+                    <div class="close" id="close-bttn">
+                        <img src="./images/xmark-solid.svg" alt="" class="black">
+                        <img src="./images/xmark-solid-white.svg" alt="" class="white">
+                    </div>
                     <div class="popup-content" id="popup-content">
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="change-theme flex">
+            <a href="" class="change-mode" id="go-dark">
+                <img src="./images/moon-solid.svg" alt="" class="black">
+                <img src="./images/moon-solid-white.svg" alt="" class="white">
+                <span> Go dark </span></a>
+            <a href="" class="change-mode" id="go-light">
+                <img src="./images/sun-solid.svg" alt="" class="black">
+                <img src="./images/sun-solid-white.svg" alt="" class="white">
+                <span>Lumos</span>
+            </a>
         </div>
 
         <footer>
@@ -74,6 +94,7 @@
     </main>
 
 
+    <div class="mode-change-overlay"></div>
 
 
 
