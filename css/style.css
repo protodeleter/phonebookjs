@@ -112,7 +112,7 @@ img {
 
 main {
   width: 100%;
-  height: 95vh;
+  height: auto;
   background-color: #cfd2ff;
   transition: all 1s;
 }
@@ -142,8 +142,8 @@ main.dark img.white {
 
 .wrapper {
   width: 90%;
-  margin: 0 auto;
-  height: 80%;
+  margin: 10px auto 60px auto;
+  height: auto;
 }
 
 .wrapper .row {
@@ -170,9 +170,10 @@ main.dark img.white {
 .title {
   width: 100%;
   text-align: center;
-  height: 20%;
+  height: auto;
   font-size: 40px;
   font-weight: 900;
+  padding: 40px 0;
 }
 
 .dark .title {

@@ -291,18 +291,43 @@ const updateItem = data => {
 
 };
 
-
+/**
+ * Change mode feature
+ * 
+ */
 document.querySelectorAll('.change-mode').forEach((element) => {
 
     element.addEventListener('click', (e) => {
         e.preventDefault();
 
+        /**
+         * get id of clicked A tag
+         */
         const clickedID = e.target.closest('a').getAttribute('id');
+        /**
+         * Prepare class string for use at <main>
+         */
         let mainClass = clickedID === "go-dark" ? "dark" : "light";
 
+        /**
+         * prevent click the same mode again
+         */
+        if (document.querySelectorAll('main')[0].classList.contains('dark') && clickedID === "go-dark") {
+            return;
+        } else if (document.querySelectorAll('main')[0].classList.contains("light") && clickedID === "go-light") {
+            return;
+        }
+
+        /**
+         * run animation function according to set class
+         */
         overlayAnimation(mainClass)
 
 
+        /**
+         * set class on main tag 
+         * wait for animation to finish
+         */
         setTimeout(() => {
             document.querySelectorAll('main')[0].classList = mainClass;
         }, 1000);
@@ -313,15 +338,26 @@ document.querySelectorAll('.change-mode').forEach((element) => {
 })
 
 
+/**
+ * just an animation function
+ * @param  cls 
+ */
 const overlayAnimation = (cls) => {
 
+    /**
+     * get overlay div
+     */
     let overlayDiv = document.querySelectorAll('.mode-change-overlay');
 
+    /**
+     * set overlay background
+     */
     if (cls == "dark") {
         overlayDiv[0].style.background = "#22222B";
     } else {
         overlayDiv[0].style.background = "#cfd2ff";
     }
+
 
     overlayDiv[0].style.display = "block";
     overlayDiv[0].style.width = "100%";
@@ -329,11 +365,9 @@ const overlayAnimation = (cls) => {
 
 
     setTimeout(() => {
-
         overlayDiv[0].style.left = "auto";
         overlayDiv[0].style.right = "0";
         overlayDiv[0].style.width = "0%";
-
     }, 1000);
 
     overlayDiv[0].style.left = "0";
