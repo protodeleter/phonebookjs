@@ -361,7 +361,7 @@ const overlayAnimation = (cls) => {
 
     overlayDiv[0].style.display = "block";
     overlayDiv[0].style.width = "100%";
-    overlayDiv[0].style.transition = "all 1s ease-in-out;";
+    overlayDiv[0].style.transition = "width 0.9s ease-out;";
 
 
     setTimeout(() => {
