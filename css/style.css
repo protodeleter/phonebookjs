@@ -109,10 +109,14 @@ img {
 }
 
 
+html,
+body {
+  height: 100%;
+}
 
 main {
   width: 100%;
-  height: auto;
+  height: 100%;
   background-color: #cfd2ff;
   transition: all 1s;
 }
@@ -143,7 +147,7 @@ main.dark img.white {
 .wrapper {
   width: 90%;
   margin: 10px auto 60px auto;
-  height: auto;
+  height: 72%;
 }
 
 .wrapper .row {
@@ -165,12 +169,13 @@ main.dark img.white {
   width: 100%;
   max-height: 500px;
   overflow-y: auto;
+  height: 45vh;
 }
 
 .title {
   width: 100%;
   text-align: center;
-  height: auto;
+  height: 15.4%;
   font-size: 40px;
   font-weight: 900;
   padding: 40px 0;
@@ -389,7 +394,7 @@ main.dark .change-theme a {
 
 
   main {
-    height: auto;
+    /* height: auto; */
   }
 
   .popup .box {
@@ -397,9 +402,13 @@ main.dark .change-theme a {
     width: 90%;
   }
 
+  .title {
+    height: 13vh;
+  }
+
   .wrapper {
     margin: 50px auto;
-    height: auto;
+    height: 73vh;
   }
 
   .wrapper .row .items {
