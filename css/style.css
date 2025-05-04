@@ -158,6 +158,7 @@ main.dark img.white {
   border-radius: 15px;
   box-shadow: -5px 5px 11px 0px rgb(69 69 69 / 52%);
   transition: all 0.3 ease;
+  max-height: 590px;
 }
 
 .dark .wrapper .row {
@@ -167,9 +168,9 @@ main.dark img.white {
 
 .wrapper .row .items {
   width: 100%;
-  max-height: 500px;
   overflow-y: auto;
-  height: 45vh;
+  padding: 20px 0px;
+  max-height: 380px;
 }
 
 .title {
@@ -188,6 +189,7 @@ main.dark img.white {
 .general-actions {
   width: 100%;
   padding: 10px;
+  height: 15%;
 }
 
 .general-actions .counter {
@@ -403,16 +405,22 @@ main.dark .change-theme a {
   }
 
   .title {
-    height: 13vh;
+    height: 15%;
+    padding: 0;
   }
 
   .wrapper {
-    margin: 50px auto;
-    height: 73vh;
+    margin: 0 auto;
+    height: 80%;
+    min-height: 600px;
   }
 
   .wrapper .row .items {
-    max-height: 340px;
+    max-height: 380px;
+  }
+
+  footer {
+    height: 5%;
   }
 
   .change-theme a {
