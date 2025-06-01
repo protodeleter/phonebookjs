@@ -13,6 +13,7 @@ let db = {
             address: '123 Main St',
             age: 25,
             image_url: 'https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?t=st=1746027604~exp=1746031204~hmac=807c0a00faae85c442b77f20d928618cb45235517b772c3ee5d0b4a8f1406958&w=740',
+            favorite: true,
         },
         [generateId(5)]: {
             name: 'Patricia Keys',
@@ -20,6 +21,7 @@ let db = {
             address: '123 Main St',
             age: 25,
             image_url: 'https://img.freepik.com/premium-photo/memoji-beautiful-girl-woman-white-background-emoji_826801-6872.jpg?w=740',
+            favorite: false,
         },
         [generateId(5)]: {
             name: 'Georgina Sims',
@@ -27,6 +29,8 @@ let db = {
             address: '123 Main St',
             age: 25,
             image_url: 'https://plus.unsplash.com/premium_photo-1671656349218-5218444643d8?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            favorite: false,
+
         },
         [generateId(5)]: {
             name: 'Lorenzo Goodwin',
@@ -34,6 +38,8 @@ let db = {
             address: '123 Main St',
             age: 25,
             image_url: 'https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?t=st=1746027604~exp=1746031204~hmac=807c0a00faae85c442b77f20d928618cb45235517b772c3ee5d0b4a8f1406958&w=740',
+            favorite: false,
+
         },
         [generateId(5)]: {
             name: 'Pavel Nasonov',
@@ -41,6 +47,7 @@ let db = {
             address: '123 Main St',
             age: 25,
             image_url: 'https://scontent.ftlv18-1.fna.fbcdn.net/v/t39.30808-6/493026291_656761140555428_2947196945405164635_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_ohc=upcKnsk7A9MQ7kNvwG9wimJ&_nc_oc=AdlxjGPWHBSHt4a-Rhn2AMPKeSkQawk0n1ccckfUBNtzCkO__T8QvfcaZN3vGrleTyY&_nc_zt=23&_nc_ht=scontent.ftlv18-1.fna&_nc_gid=n0Ihz_W7SJwJ7M7MwZn6_g&oh=00_AfHoiPhNYfKzcxkFX8F1VI3RR_daJkHihYPKw5F1iGCEyw&oe=68181351',
+            favorite: false,
         },
     }
 };
@@ -51,6 +58,9 @@ let db = {
  * @returns object
  */
 const getUsers = () => {
+
+
+
 
     let usersNew = {}
 
@@ -63,7 +73,8 @@ const getUsers = () => {
                     phone: value.phone,
                     address: value.address,
                     age: value.age,
-                    image_url: value.image_url
+                    image_url: value.image_url,
+                    favorite: value.favorite || false
                 }
             }
         }
@@ -90,6 +101,7 @@ const getUserById = id => {
         address: user.address,
         age: user.age,
         image_url: user.image_url,
+        favorite: user.favorite || false
     };
 };
 /**
@@ -105,7 +117,8 @@ const userItemTemplate = user => {
             data-phone="${user.phone}" 
             data-age="${user.age}" 
             data-address="${user.address}" 
-            data-image="${user.image_url}" >
+            data-image="${user.image_url}"
+            data-favorite="${user.favorite ? 'true' : 'false'}">
 
             <div class="left flex f-a-c">
                 <div class="image">
@@ -117,6 +130,11 @@ const userItemTemplate = user => {
             </div>
             <div class="right flex">
                 <div class="buttons f-a-c flex f-j-sb">
+                    <a href="#" class="favorite" data-id="${user.id}"> 
+                    ${(user.favorite) ?
+            `<img src="./images/star-solid-checked.svg" alt="" class="">` :
+            `<img src="./images/star-solid.svg" alt="" class="">`}
+                        </a>
                     <a href="#" class="edit" data-id="${user.id}"> <img src="./images/pen-to-square-solid.svg" alt="" class="black">  <img src="./images/pen-to-square-solid-white.svg" alt="" class="white"> </a>
                     <a href="#" class="del" data-id="${user.id}"> <img src="./images/trash-solid.svg" alt="" class="black">   <img src="./images/trash-solid-white.svg" alt="" class="white"> </a>
                     <a href="#" class="info" data-id="${user.id}"> <img src="./images/circle-info-solid.svg" alt="" class="black"> <img src="./images/circle-info-solid-white.svg" alt="" class="white"> </a>

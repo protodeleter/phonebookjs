@@ -118,6 +118,10 @@ document.addEventListener("click", function (e) {
         case 'add-new':
             addNew();
             break;
+
+        case 'favorite':
+            toggleFavorite(currentClickedId);
+            break;
         case 'del-all':
             deleteAll();
             break;
@@ -128,7 +132,26 @@ document.addEventListener("click", function (e) {
 
 });
 
+function toggleFavorite(id) {
 
+    const user = getUserById(id);
+
+    let favoriteStatus = user.favorite; // get current favorite status
+    let setStatus = favoriteStatus ? false : true;
+
+    updateItem({
+        id: user.id,
+        name: user.name,
+        phone: user.phone,
+        address: user.address,
+        age: user.age,
+        image_url: user.image_url,
+        favorite: setStatus
+    });
+
+    sortUsersBy('favorite');
+
+}
 
 /**
  * CLear database update counter and render results
@@ -198,14 +221,26 @@ const addNew = () => {
 };
 
 
+
+function sortUsersBy(par) {
+
+    let sortedObj = Object.fromEntries(
+        Object.entries(getUsers()).sort(([, a], [, b]) => {
+            return (b[par] === true) - (a[par] === true);
+        })
+    );
+
+    renderUsers(sortedObj);
+}
+
+
+
 /**
  * submit event listener
  */
 
 document.addEventListener("submit", function (e) {
     e.preventDefault();
-
-
     const formType = document.getElementById('form-type'); // get form type add-new or edit
 
     /**
@@ -217,6 +252,7 @@ document.addEventListener("submit", function (e) {
     let age = document.getElementById('age');
     let image_url = document.getElementById('image_url');
     let id = document.getElementById('item-id');
+    let favorite = document.getElementById('item-id');
 
     let itemData = {};
 
@@ -243,6 +279,7 @@ document.addEventListener("submit", function (e) {
     itemData.address = address.value;
     itemData.age = age.value;
     itemData.image_url = image_url.value;
+    itemData.favorite = favorite.value; // get favorite checkbox value
 
 
 
@@ -278,17 +315,14 @@ const createItem = data => {
  */
 
 const updateItem = data => {
-
-
     db.users[data.id].name = data.name;
     db.users[data.id].address = data.address;
     db.users[data.id].age = data.age;
     db.users[data.id].image_url = data.image_url;
     db.users[data.id].phone = data.phone;
-
+    db.users[data.id].favorite = data.favorite;
     renderUsers(getUsers());
     runCallbacks({ close_popup })
-
 };
 
 /**

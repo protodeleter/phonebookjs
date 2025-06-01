@@ -392,6 +392,7 @@ footer .cpr {
   -webkit-box-align: end;
   -ms-flex-align: end;
   align-items: flex-end;
+  color: gold;
 }
 
 .change-theme img {
