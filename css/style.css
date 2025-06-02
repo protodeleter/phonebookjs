@@ -120,6 +120,13 @@ img {
   align-items: center;
 }
 
+.f-a-c-end {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+}
+
+
 
 html,
 body {
@@ -282,6 +289,42 @@ main.dark img.white {
   object-position: center;
 }
 
+
+.tags .tag span {
+  padding: 6px;
+  background-color: #665fbd;
+  color: white;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+.tags a {
+  text-decoration: none;
+}
+
+
+
+
+.tags.panel .tag span {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tags.panel .tag span:hover {
+  background-color: #7a6fbd;
+}
+
+.item .tags .tag span {
+  font-size: 13px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.tags .tag-active .tag span {
+  background-color: #200e8f;
+  color: white;
+}
+
 .popup {
   position: fixed;
   width: 100%;
@@ -373,6 +416,15 @@ form .field label span {
   max-width: 190px;
 }
 
+.info-content .tag {
+  background-color: #6363bd;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 0 5px;
+  font-size: 13px;
+}
+
 footer {
   background-color: white;
 }
@@ -425,6 +477,9 @@ main.dark .change-theme a {
   -webkit-box-shadow: 8px 1px 4px rgb(83 70 70 / 22%);
   box-shadow: 8px 1px 4px rgb(83 70 70 / 22%);
 }
+
+
+
 
 @media screen and (max-width: 780px) {
 

@@ -101,8 +101,10 @@ document.addEventListener("click", function (e) {
     if (!currentClicked) return;
 
 
+
     const currentClickedClass = currentClicked.getAttribute('class'); // get element class attribute
     const currentClickedId = currentClicked.getAttribute('data-id'); // get element data-id attribute
+
 
     // run function depending on currentClickedClass value
     switch (currentClickedClass) {
@@ -118,9 +120,11 @@ document.addEventListener("click", function (e) {
         case 'add-new':
             addNew();
             break;
-
         case 'favorite':
             toggleFavorite(currentClickedId);
+            break;
+        case 'tag':
+            toggleSortByTag(currentClickedId, currentClicked);
             break;
         case 'del-all':
             deleteAll();
@@ -146,13 +150,13 @@ function toggleFavorite(id) {
         address: user.address,
         age: user.age,
         image_url: user.image_url,
-        favorite: setStatus
+        favorite: setStatus,
+        tags: user.tags
     });
 
     sortUsersBy('favorite');
 
 }
-
 /**
  * CLear database update counter and render results
  */
@@ -220,7 +224,22 @@ const addNew = () => {
 
 };
 
+function toggleSortByTag(id, e) {
 
+
+    console.log(id);
+    console.log(e.parentNode.classList);
+
+
+
+    if (e.parentNode.classList.contains('tag-active')) {
+        e.parentNode.classList.remove('tag-active')
+    } else {
+        e.parentNode.classList.add('tag-active')
+    }
+
+
+}
 
 function sortUsersBy(par) {
 

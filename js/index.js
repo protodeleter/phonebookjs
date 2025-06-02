@@ -14,6 +14,7 @@ let db = {
             age: 25,
             image_url: 'https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?t=st=1746027604~exp=1746031204~hmac=807c0a00faae85c442b77f20d928618cb45235517b772c3ee5d0b4a8f1406958&w=740',
             favorite: true,
+            tags: ['work', 'family']
         },
         [generateId(5)]: {
             name: 'Patricia Keys',
@@ -22,6 +23,7 @@ let db = {
             age: 25,
             image_url: 'https://img.freepik.com/premium-photo/memoji-beautiful-girl-woman-white-background-emoji_826801-6872.jpg?w=740',
             favorite: false,
+            tags: ['work', 'friends']
         },
         [generateId(5)]: {
             name: 'Georgina Sims',
@@ -30,7 +32,7 @@ let db = {
             age: 25,
             image_url: 'https://plus.unsplash.com/premium_photo-1671656349218-5218444643d8?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
             favorite: false,
-
+            tags: ['studies', 'work']
         },
         [generateId(5)]: {
             name: 'Lorenzo Goodwin',
@@ -39,7 +41,7 @@ let db = {
             age: 25,
             image_url: 'https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?t=st=1746027604~exp=1746031204~hmac=807c0a00faae85c442b77f20d928618cb45235517b772c3ee5d0b4a8f1406958&w=740',
             favorite: false,
-
+            tags: ['studies', 'work']
         },
         [generateId(5)]: {
             name: 'Pavel Nasonov',
@@ -48,17 +50,30 @@ let db = {
             age: 25,
             image_url: 'https://scontent.ftlv18-1.fna.fbcdn.net/v/t39.30808-6/493026291_656761140555428_2947196945405164635_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_ohc=upcKnsk7A9MQ7kNvwG9wimJ&_nc_oc=AdlxjGPWHBSHt4a-Rhn2AMPKeSkQawk0n1ccckfUBNtzCkO__T8QvfcaZN3vGrleTyY&_nc_zt=23&_nc_ht=scontent.ftlv18-1.fna&_nc_gid=n0Ihz_W7SJwJ7M7MwZn6_g&oh=00_AfHoiPhNYfKzcxkFX8F1VI3RR_daJkHihYPKw5F1iGCEyw&oe=68181351',
             favorite: false,
+            tags: ['work', 'studies']
         },
     }
 };
 
+function getAllTags() {
+    const users = getUsers();
+    let tags = [];
+
+    for (const [key, user] of Object.entries(users)) {
+        for (const tag of user.tags) {
+            if (!tags.includes(tag)) {
+                tags.push(tag);
+            }
+        }
+    }
+    return tags;
+}
 
 /**
  * getUsers get entries of the database object and map 
  * @returns object
  */
 const getUsers = () => {
-
 
 
 
@@ -74,7 +89,8 @@ const getUsers = () => {
                     address: value.address,
                     age: value.age,
                     image_url: value.image_url,
-                    favorite: value.favorite || false
+                    favorite: value.favorite,
+                    tags: value.tags
                 }
             }
         }
@@ -82,6 +98,12 @@ const getUsers = () => {
 
     return usersNew;
 };
+
+getAllTags();
+
+
+
+
 
 /**
  * get single user by id from db object
@@ -101,7 +123,8 @@ const getUserById = id => {
         address: user.address,
         age: user.age,
         image_url: user.image_url,
-        favorite: user.favorite || false
+        favorite: user.favorite,
+        tags: user.tags
     };
 };
 /**
@@ -118,7 +141,8 @@ const userItemTemplate = user => {
             data-age="${user.age}" 
             data-address="${user.address}" 
             data-image="${user.image_url}"
-            data-favorite="${user.favorite ? 'true' : 'false'}">
+            data-favorite="${user.favorite ? 'true' : 'false'}"
+            data-tag="${user.tags ? user.tags : ''}">
 
             <div class="left flex f-a-c">
                 <div class="image">
@@ -126,6 +150,10 @@ const userItemTemplate = user => {
                 </div>
                 <div class="name">
                     ${user.name}
+                </div>
+                <div class="tags flex f-wrap f-a-c">
+                ${tagsTemplate(user.tags)}
+                
                 </div>
             </div>
             <div class="right flex">
@@ -144,6 +172,44 @@ const userItemTemplate = user => {
         </div>
     `;
 };
+
+
+const renderTags = (tags) => {
+
+    if (!tags || tags.length === 0) {
+        return '';
+    }
+    // Use the tagsTemplate function to generate HTML for the tags
+
+    const tagsDiv = document.querySelector('.tags');
+    if (!tagsDiv) {
+        return '';
+    }
+    // Clear existing tags
+
+    tagsDiv.innerHTML = tagsTemplate(tags); // Clear existing tags
+
+}
+
+
+/**
+ * renderTags function to render tags in the user item template
+ * @param tags
+ * @returns string
+ */
+
+function tagsTemplate(tags) {
+
+    if (!tags || tags.length === 0) {
+        return '';
+    }
+    let tagsHTML = '';
+    for (let index = 0; index < tags.length; index++) {
+        const tag = tags[index];
+        tagsHTML += `<div><a href="" class="tag" data-id="${tag}"><span>${tag}</span></a></div>`;
+    }
+    return tagsHTML;
+}
 
 /**
  * HTML template if no items present in phone book
@@ -170,6 +236,8 @@ const popupTemplate = (data) => {
 
     let formId = data.type === "add" ? "add-new" : "edit";
 
+
+
     if (data.type === 'info') {
 
         formTemplate = `
@@ -179,6 +247,8 @@ const popupTemplate = (data) => {
                 <div class="info-item"> ${data.data.address} </div>
                 <div class="info-item"> ${data.data.age} </div>
                 <div class="info-item"> <img src="${data.data.image_url}" alt="${data.data.name}"> </div>
+                <div class="info-item"> <div class="tags"> ${tagsTemplate(data.data.tags)} </div></div>
+
             </div>
         `;
     } else {
@@ -285,6 +355,7 @@ const animations = () => {
 
 function runApp() {
     renderUsers(getUsers());
+    renderTags(getAllTags());
 }
 
 runApp();
