@@ -478,8 +478,17 @@ main.dark .change-theme a {
   box-shadow: 8px 1px 4px rgb(83 70 70 / 22%);
 }
 
+.show-all-favorites .checked {
+  display: none;
+}
 
+.show-all-favorites .checked.active {
+  display: block;
+}
 
+.show-all-favorites .unchedked.active {
+  display: block;
+}
 
 @media screen and (max-width: 780px) {
 

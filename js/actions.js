@@ -89,10 +89,16 @@ document.addEventListener('click', function (e) {
   e.preventDefault();
 
   const currentClicked = e.target.closest('a'); // find closest A tag
+
+
+
   if (!currentClicked) return;
 
   const currentClickedClass = currentClicked.getAttribute('class'); // get element class attribute
   const currentClickedId = currentClicked.getAttribute('data-id'); // get element data-id attribute
+
+  // console.log(currentClickedId, currentClickedClass, currentClicked);
+
 
   // run function depending on currentClickedClass value
   switch (currentClickedClass) {
@@ -117,7 +123,9 @@ document.addEventListener('click', function (e) {
     case 'del-all':
       deleteAll();
       break;
-
+    case 'show-all-favorites':
+      toggleFavorites(currentClickedId);
+      break;
     default:
       break;
   }
@@ -212,6 +220,11 @@ const addNew = () => {
 const filterBy = (users, par) => {
   let asf = Object.fromEntries(
     Object.entries(users).filter(x => {
+
+      if (par === 'favorite' && x[1].favorite === true) {
+        return x;
+      }
+
       if (x[1].tags[0] === par) {
         return x;
       }
@@ -221,11 +234,28 @@ const filterBy = (users, par) => {
   return asf;
 };
 
+const toggleFavorites = (el) => {
+
+  let some = document.querySelectorAll('.show-all-favorites');
+
+
+
+}
+
+
+
 const toggleSortByTag = (id, e) => {
+  let items = document.querySelectorAll('.tags > div');
   if (e.parentNode.classList.contains('tag-active')) {
     e.parentNode.classList.remove('tag-active');
     renderUsers(getUsers());
   } else {
+    for (let index = 0; index < items.length; index++) {
+      const element = items[index];
+      if (element.classList.contains('tag-active') && element.getAttribute('data-id') !== id) {
+        element.classList.remove('tag-active');
+      }
+    }
     e.parentNode.classList.add('tag-active');
     renderUsers(filterBy(getUsers(), id));
   }
