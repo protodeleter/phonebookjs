@@ -124,7 +124,7 @@ document.addEventListener('click', function (e) {
       deleteAll();
       break;
     case 'show-all-favorites':
-      toggleFavorites(currentClickedId);
+      toggleFavorites();
       break;
     default:
       break;
@@ -234,11 +234,19 @@ const filterBy = (users, par) => {
   return asf;
 };
 
-const toggleFavorites = (el) => {
+const toggleFavorites = () => {
 
-  let some = document.querySelectorAll('.show-all-favorites');
+  let some = document.querySelector('.show-all-favorites');
 
+  // some.id = "active"
 
+  if (some.id === "active") {
+    some.id = "";
+    renderUsers(getUsers());
+  } else {
+    some.id = "active";
+    renderUsers(filterBy(getUsers(), 'favorite'));
+  }
 
 }
 
@@ -292,6 +300,7 @@ document.addEventListener('submit', function (e) {
   let age = document.getElementById('age');
   let image_url = document.getElementById('image_url');
   let id = document.getElementById('item-id');
+  let tag = document.getElementById('tag');
   //   let favorite = document.getElementById('item-id');
 
   let itemData = {};
@@ -317,8 +326,9 @@ document.addEventListener('submit', function (e) {
   itemData.phone = phone.value;
   itemData.address = address.value;
   itemData.age = age.value;
+  itemData.tags = [tag.value];
   itemData.image_url = image_url.value;
-  itemData.favorite = favorite.value; // get favorite checkbox value
+  // itemData.favorite = favorite.value; // get favorite checkbox value
 
   switch (formType.value) {
     case 'edit':
@@ -341,6 +351,8 @@ document.addEventListener('submit', function (e) {
  */
 const createItem = data => {
   db.users = Object.assign({ [data.id]: data }, db.users);
+
+  renderTags(getAllTags());
   renderUsers(getUsers());
 };
 
@@ -356,7 +368,10 @@ const updateItem = data => {
   db.users[data.id].image_url = data.image_url;
   db.users[data.id].phone = data.phone;
   db.users[data.id].favorite = data.favorite;
+  db.users[data.id].tags = [data.tags];
 
+
+  renderTags(getAllTags());
   renderUsers(getUsers());
   runCallbacks({ close_popup });
 };

@@ -157,21 +157,17 @@ const userItemTemplate = user => {
             <div class="right flex">
                 <div class="buttons f-a-c flex f-j-sb">
                     <a href="#" class="favorite" data-id="${user.id}"> 
-                    ${
-                      user.favorite
-                        ? `<img src="./images/star-solid-checked.svg" alt="" class="">`
-                        : `<img src="./images/star-solid.svg" alt="" class="">`
-                    }
+                    ${user.favorite
+      ? `<img src="./images/star-solid-checked.svg" alt="" class="">`
+      : `<img src="./images/star-solid.svg" alt="" class="">`
+    }
                         </a>
-                    <a href="#" class="edit" data-id="${
-                      user.id
-                    }"> <img src="./images/pen-to-square-solid.svg" alt="" class="black">  <img src="./images/pen-to-square-solid-white.svg" alt="" class="white"> </a>
-                    <a href="#" class="del" data-id="${
-                      user.id
-                    }"> <img src="./images/trash-solid.svg" alt="" class="black">   <img src="./images/trash-solid-white.svg" alt="" class="white"> </a>
-                    <a href="#" class="info" data-id="${
-                      user.id
-                    }"> <img src="./images/circle-info-solid.svg" alt="" class="black"> <img src="./images/circle-info-solid-white.svg" alt="" class="white"> </a>
+                    <a href="#" class="edit" data-id="${user.id
+    }"> <img src="./images/pen-to-square-solid.svg" alt="" class="black">  <img src="./images/pen-to-square-solid-white.svg" alt="" class="white"> </a>
+                    <a href="#" class="del" data-id="${user.id
+    }"> <img src="./images/trash-solid.svg" alt="" class="black">   <img src="./images/trash-solid-white.svg" alt="" class="white"> </a>
+                    <a href="#" class="info" data-id="${user.id
+    }"> <img src="./images/circle-info-solid.svg" alt="" class="black"> <img src="./images/circle-info-solid-white.svg" alt="" class="white"> </a>
                 </div>
             </div>
 
@@ -242,12 +238,11 @@ const popupTemplate = data => {
                 <div class="info-item"> ${data.data.phone} </div>
                 <div class="info-item"> ${data.data.address} </div>
                 <div class="info-item"> ${data.data.age} </div>
-                <div class="info-item"> <img src="${
-                  data.data.image_url
-                }" alt="${data.data.name}"> </div>
+                <div class="info-item"> <img src="${data.data.image_url
+      }" alt="${data.data.name}"> </div>
                 <div class="info-item"> <div class="tags"> ${tagsTemplate(
-                  data.data.tags,
-                )} </div></div>
+        data.data.tags,
+      )} </div></div>
 
             </div>
         `;
@@ -256,15 +251,13 @@ const popupTemplate = data => {
         <form action="" id="${formId}">
             <div class="fields flex f-wrap f-j-sb">
                 <input type="hidden" value="${formId}" name="form-type" id="form-type">
-                <input type="hidden" value="${
-                  data.data && data.data.id
-                }" name="item-id" id="item-id">
+                <input type="hidden" value="${data.data && data.data.id
+      }" name="item-id" id="item-id">
                 <div class="field name">
                     <label for="name" class="flex f-a-c">
                         <span>Name*:</span>
-                        <input type="text" name="name" id="name" value="${
-                          data.data && data.data.name ? data.data.name : ''
-                        }" placeholder="Enter name">
+                        <input type="text" name="name" id="name" value="${data.data && data.data.name ? data.data.name : ''
+      }" placeholder="Enter name">
                     </label >
                     <span class="error"></span>
                 </div >
@@ -272,21 +265,19 @@ const popupTemplate = data => {
                 <div class="field phone">
                     <label for="phone" class="flex f-a-c">
                         <span>Phone*:</span>
-                        <input type="phone" name="phone" id="phone" value="${
-                          data.data && data.data.phone ? data.data.phone : ''
-                        }" placeholder="Enter phone">
+                        <input type="phone" name="phone" id="phone" value="${data.data && data.data.phone ? data.data.phone : ''
+      }" placeholder="Enter phone">
                     </label>
                     <span class="error"></span>
                 </div>
 
                 <div class="field address">
-                    <label for="Address" class="flex f-a-c">
+                    <label for="address" class="flex f-a-c">
                         <span>Address*:</span>
-                        <input type="text" name="address" id="address" value="${
-                          data.data && data.data.address
-                            ? data.data.address
-                            : ''
-                        }" placeholder="Enter address">
+                        <input type="text" name="address" id="address" value="${data.data && data.data.address
+        ? data.data.address
+        : ''
+      }" placeholder="Enter address">
                     </label>
                     <span class="error"></span>
                 </div>
@@ -294,9 +285,17 @@ const popupTemplate = data => {
                 <div class="field age">
                     <label for="age" class="flex f-a-c">
                         <span>Age*:</span>
-                        <input type="number" name="age" id="age" value="${
-                          data.data && data.data.age ? data.data.age : ''
-                        }" placeholder="Enter age">
+                        <input type="number" name="age" id="age" value="${data.data && data.data.age ? data.data.age : ''
+      }" placeholder="Enter age">
+                    </label>
+                    <span class="error"></span>
+                </div>
+
+                <div class="field tag">
+                    <label for="age" class="flex f-a-c">
+                        <span>Tag*:</span>
+                        <input type="text" name="tag" id="tag" value="${data.data && data.data.tags ? data.data.tags : ''
+      }" placeholder="Enter tag">
                     </label>
                     <span class="error"></span>
                 </div>
@@ -304,11 +303,10 @@ const popupTemplate = data => {
                 <div class="field image_url">
                     <label for="image_url" class="flex f-a-c">
                         <span>Image url:</span>
-                        <input type="url" name="image_url" id="image_url" value="${
-                          data.data && data.data.image_url
-                            ? data.data.image_url
-                            : ''
-                        }" placeholder="Image Url">
+                        <input type="url" name="image_url" id="image_url" value="${data.data && data.data.image_url
+        ? data.data.image_url
+        : ''
+      }" placeholder="Image Url">
                     </label>
                     <span class="error"></span>
                 </div>
