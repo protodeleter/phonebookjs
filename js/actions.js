@@ -97,7 +97,6 @@ document.addEventListener('click', function (e) {
   const currentClickedClass = currentClicked.getAttribute('class'); // get element class attribute
   const currentClickedId = currentClicked.getAttribute('data-id'); // get element data-id attribute
 
-  // console.log(currentClickedId, currentClickedClass, currentClicked);
 
 
   // run function depending on currentClickedClass value
@@ -220,12 +219,10 @@ const addNew = () => {
 const filterBy = (users, par) => {
   let asf = Object.fromEntries(
     Object.entries(users).filter(x => {
-
-      if (par === 'favorite' && x[1].favorite === true) {
+      if (par === 'favorite' && Number(x[1].favorite) === 1) { // Cast db parameter to number 
         return x;
       }
-
-      if (x[1].tags[0] === par) {
+      if (x[1].tags === par) {
         return x;
       }
     }),
@@ -237,8 +234,6 @@ const filterBy = (users, par) => {
 const toggleFavorites = () => {
 
   let some = document.querySelector('.show-all-favorites');
-
-  // some.id = "active"
 
   if (some.id === "active") {
     some.id = "";
@@ -301,7 +296,9 @@ document.addEventListener('submit', function (e) {
   let image_url = document.getElementById('image_url');
   let id = document.getElementById('item-id');
   let tag = document.getElementById('tag');
-  //   let favorite = document.getElementById('item-id');
+  let favorite = document.getElementById('favorite');
+
+
 
   let itemData = {};
 
@@ -326,9 +323,9 @@ document.addEventListener('submit', function (e) {
   itemData.phone = phone.value;
   itemData.address = address.value;
   itemData.age = age.value;
-  itemData.tags = [tag.value];
+  itemData.tags = tag.value;
   itemData.image_url = image_url.value;
-  // itemData.favorite = favorite.value; // get favorite checkbox value
+  itemData.favorite = favorite.value === 1 ? 1 : 0; // get favorite checkbox value
 
   switch (formType.value) {
     case 'edit':
@@ -362,13 +359,16 @@ const createItem = data => {
  */
 
 const updateItem = data => {
+
+
+
   db.users[data.id].name = data.name;
   db.users[data.id].address = data.address;
   db.users[data.id].age = data.age;
   db.users[data.id].image_url = data.image_url;
   db.users[data.id].phone = data.phone;
   db.users[data.id].favorite = data.favorite;
-  db.users[data.id].tags = [data.tags];
+  db.users[data.id].tags = data.tags;
 
 
   renderTags(getAllTags());

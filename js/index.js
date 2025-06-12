@@ -12,8 +12,8 @@ let db = {
       age: 25,
       image_url:
         'https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?t=st=1746027604~exp=1746031204~hmac=807c0a00faae85c442b77f20d928618cb45235517b772c3ee5d0b4a8f1406958&w=740',
-      favorite: true,
-      tags: ['family'],
+      favorite: 1,
+      tags: 'work',
     },
     [generateId(5)]: {
       name: 'Patricia Keys',
@@ -22,8 +22,8 @@ let db = {
       age: 25,
       image_url:
         'https://img.freepik.com/premium-photo/memoji-beautiful-girl-woman-white-background-emoji_826801-6872.jpg?w=740',
-      favorite: false,
-      tags: ['work'],
+      favorite: 0,
+      tags: "work",
     },
     [generateId(5)]: {
       name: 'Georgina Sims',
@@ -32,8 +32,8 @@ let db = {
       age: 25,
       image_url:
         'https://plus.unsplash.com/premium_photo-1671656349218-5218444643d8?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      favorite: false,
-      tags: ['work'],
+      favorite: 0,
+      tags: "work",
     },
     [generateId(5)]: {
       name: 'ALorenzo Goodwin',
@@ -42,8 +42,8 @@ let db = {
       age: 25,
       image_url:
         'https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?t=st=1746027604~exp=1746031204~hmac=807c0a00faae85c442b77f20d928618cb45235517b772c3ee5d0b4a8f1406958&w=740',
-      favorite: false,
-      tags: ['work'],
+      favorite: 0,
+      tags: "studies",
     },
     [generateId(5)]: {
       name: 'Pavel Nasonov',
@@ -52,8 +52,8 @@ let db = {
       age: 25,
       image_url:
         'https://scontent.ftlv18-1.fna.fbcdn.net/v/t39.30808-6/493026291_656761140555428_2947196945405164635_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_ohc=upcKnsk7A9MQ7kNvwG9wimJ&_nc_oc=AdlxjGPWHBSHt4a-Rhn2AMPKeSkQawk0n1ccckfUBNtzCkO__T8QvfcaZN3vGrleTyY&_nc_zt=23&_nc_ht=scontent.ftlv18-1.fna&_nc_gid=n0Ihz_W7SJwJ7M7MwZn6_g&oh=00_AfHoiPhNYfKzcxkFX8F1VI3RR_daJkHihYPKw5F1iGCEyw&oe=68181351',
-      favorite: false,
-      tags: ['studies'],
+      favorite: 0,
+      tags: "studies",
     },
   },
 };
@@ -64,14 +64,18 @@ function getAllTags() {
   let tags = [];
 
   for (const [key, user] of Object.entries(users)) {
-    for (const tag of user.tags) {
-      if (!tags.includes(tag)) {
-        tags.push(tag);
-      }
+
+    if (!tags.includes(user.tags)) {
+      tags.push(user.tags);
     }
   }
+
+  console.log(tags);
+
+
   return tags;
 }
+
 
 /**
  * getUsers get entries of the database object and map
@@ -97,8 +101,6 @@ const getUsers = () => {
     }
   }
 
-  //   console.log(usersNew);
-  //   console.log(sortUsersBy(usersNew, 'name'));
 
   return sortUsersBy(usersNew, 'name');
 };
@@ -131,6 +133,8 @@ const getUserById = id => {
  * @returns string
  */
 const userItemTemplate = user => {
+
+
   return `
         <div class="item flex f-j-sb f-a-c" id="${user.id}"
             data-entryid=""
@@ -157,10 +161,7 @@ const userItemTemplate = user => {
             <div class="right flex">
                 <div class="buttons f-a-c flex f-j-sb">
                     <a href="#" class="favorite" data-id="${user.id}"> 
-                    ${user.favorite
-      ? `<img src="./images/star-solid-checked.svg" alt="" class="">`
-      : `<img src="./images/star-solid.svg" alt="" class="">`
-    }
+                    ${user.favorite ? `<img src="./images/star-solid-checked.svg" alt="" class="">` : `<img src="./images/star-solid.svg" alt="" class="">`}
                         </a>
                     <a href="#" class="edit" data-id="${user.id
     }"> <img src="./images/pen-to-square-solid.svg" alt="" class="black">  <img src="./images/pen-to-square-solid-white.svg" alt="" class="white"> </a>
@@ -197,13 +198,19 @@ const renderTags = tags => {
  */
 
 function tagsTemplate(tags) {
+
   if (!tags || tags.length === 0) {
     return '';
   }
+
   let tagsHTML = '';
-  for (let index = 0; index < tags.length; index++) {
-    const tag = tags[index];
-    tagsHTML += `<div><a href="" class="tag" data-id="${tag}"><span>${tag}</span></a></div>`;
+  if (typeof tags === 'object') {
+    for (let index = 0; index < tags.length; index++) {
+      const tag = tags[index];
+      tagsHTML += `<div><a href="" class="tag" data-id="${tag}"><span>${tag}</span></a></div>`;
+    }
+  } else {
+    tagsHTML += `<div><a href="" class="tag" data-id="${tags}"><span>${tags}</span></a></div>`;
   }
   return tagsHTML;
 }
@@ -247,12 +254,16 @@ const popupTemplate = data => {
             </div>
         `;
   } else {
+
+    console.log(data.data);
+
     formTemplate = `
         <form action="" id="${formId}">
             <div class="fields flex f-wrap f-j-sb">
                 <input type="hidden" value="${formId}" name="form-type" id="form-type">
-                <input type="hidden" value="${data.data && data.data.id
-      }" name="item-id" id="item-id">
+                <input type="hidden" value="${data.data && data.data.id}" name="item-id" id="item-id">
+                <input type="hidden" value="${data.data && data.data.favorite}" name="favorite" id="favorite">
+
                 <div class="field name">
                     <label for="name" class="flex f-a-c">
                         <span>Name*:</span>
