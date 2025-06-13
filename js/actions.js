@@ -90,14 +90,10 @@ document.addEventListener('click', function (e) {
 
   const currentClicked = e.target.closest('a'); // find closest A tag
 
-
-
   if (!currentClicked) return;
 
   const currentClickedClass = currentClicked.getAttribute('class'); // get element class attribute
   const currentClickedId = currentClicked.getAttribute('data-id'); // get element data-id attribute
-
-
 
   // run function depending on currentClickedClass value
   switch (currentClickedClass) {
@@ -232,9 +228,7 @@ const filterBy = (users, par) => {
 };
 
 const toggleFavorites = () => {
-
   let some = document.querySelector('.show-all-favorites');
-
   if (some.id === "active") {
     some.id = "";
     renderUsers(getUsers());
@@ -242,10 +236,7 @@ const toggleFavorites = () => {
     some.id = "active";
     renderUsers(filterBy(getUsers(), 'favorite'));
   }
-
 }
-
-
 
 const toggleSortByTag = (id, e) => {
   let items = document.querySelectorAll('.tags > div');
@@ -360,9 +351,6 @@ const createItem = data => {
  */
 
 const updateItem = data => {
-
-
-
   db.users[data.id].name = data.name;
   db.users[data.id].address = data.address;
   db.users[data.id].age = data.age;
@@ -370,7 +358,6 @@ const updateItem = data => {
   db.users[data.id].phone = data.phone;
   db.users[data.id].favorite = data.favorite;
   db.users[data.id].tags = data.tags;
-
 
   renderTags(getAllTags());
   renderUsers(getUsers());
