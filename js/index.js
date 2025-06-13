@@ -70,9 +70,6 @@ function getAllTags() {
     }
   }
 
-  console.log(tags);
-
-
   return tags;
 }
 
@@ -255,7 +252,6 @@ const popupTemplate = data => {
         `;
   } else {
 
-    console.log(data.data);
 
     formTemplate = `
         <form action="" id="${formId}">

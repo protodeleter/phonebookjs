@@ -134,7 +134,7 @@ function toggleFavorite(id) {
   const user = getUserById(id);
 
   let favoriteStatus = user.favorite; // get current favorite status
-  let setStatus = favoriteStatus ? false : true;
+  let setStatus = favoriteStatus ? 0 : 1;
 
   updateItem({
     id: user.id,
@@ -299,15 +299,14 @@ document.addEventListener('submit', function (e) {
   let favorite = document.getElementById('favorite');
 
 
-
   let itemData = {};
 
   /**
    * basic validation
    */
-  if (!validation({ name, phone, address, age, image_url })) {
-    return false;
-  }
+  // if (!validation({ name, phone, address, age, image_url })) {
+  //   return false;
+  // }
 
   if (formType.value === 'add-new') {
     itemData.id = generateId(5);
@@ -325,7 +324,9 @@ document.addEventListener('submit', function (e) {
   itemData.age = age.value;
   itemData.tags = tag.value;
   itemData.image_url = image_url.value;
-  itemData.favorite = favorite.value === 1 ? 1 : 0; // get favorite checkbox value
+  itemData.favorite = Number(favorite.value); // get favorite checkbox value
+
+  // console.log(itemData.favorite);
 
   switch (formType.value) {
     case 'edit':
